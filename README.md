@@ -435,5 +435,5 @@ Las tecnologias y librerias usadas mantienen sus propias licencias oficiales.
 ## Contacto
 
 Alumno/a: CARLOS PÉREZ LARA  
-Email: pendiente de indicar  
+Email: carlospl772@gmail.com  
 Ciclo: Desarrollo de Aplicaciones Web (DAW)
