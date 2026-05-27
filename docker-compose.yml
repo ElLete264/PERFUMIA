@@ -1,0 +1,32 @@
+services:
+  service:
+    build:
+      context: ./Perfumes_backend
+      dockerfile: Dockerfile
+    image: perfumia-service
+    restart: unless-stopped
+    env_file:
+      - .env.deploy
+    expose:
+      - "8080"
+    volumes:
+      - perfumia-backend-logs:/app/logs
+
+  front:
+    build:
+      context: ./Perfumes_Front
+      dockerfile: Dockerfile
+      args:
+        VITE_API_URL: ${VITE_API_URL:-/api}
+        VITE_GOOGLE_CLIENT_ID: ${VITE_GOOGLE_CLIENT_ID:-}
+        VITE_CLOUDINARY_CLOUD_NAME: ${VITE_CLOUDINARY_CLOUD_NAME:-}
+        VITE_CLOUDINARY_UPLOAD_PRESET: ${VITE_CLOUDINARY_UPLOAD_PRESET:-}
+    image: perfumia-front
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    depends_on:
+      - service
+
+volumes:
+  perfumia-backend-logs:

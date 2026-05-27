@@ -106,6 +106,10 @@ management:
             export:
                 enabled: true
 
+app:
+    cors:
+        allowed-origin-patterns: "${CORS_ALLOWED_ORIGIN_PATTERNS:http://localhost:*,http://127.0.0.1:*,http://192.168.*:*}"
+
 auth:
     access-token-secret-key: ${JWT_ACCESS_SECRET:lMCvj7Sirkk41OpuXDBKoSA1YeQ4aTeHmP4gzoyoaLk=}
     access-token-expiration: ${JWT_ACCESS_EXPIRATION:3600000}
