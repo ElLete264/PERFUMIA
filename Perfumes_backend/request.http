@@ -1,0 +1,52 @@
+### REGISTER
+POST http://localhost:8080/auth/register
+Content-Type: application/json
+
+{
+    "username": "joaquin",
+    "password": "Abcd1234",
+    "email": "joaquin@localhost.com",
+    "description": "El mejor profe"
+}
+
+### LOGIN USER
+POST http://localhost:8080/auth/login
+Content-Type: application/json
+
+{
+    "username": "joaquin",
+    "password": "Abcd1234"
+}
+
+### LOGIN ADMIN
+POST http://localhost:8080/auth/login
+Content-Type: application/json
+
+{
+    "username": "admin",
+    "password": "Abcd1234"
+}
+
+### REFRESH
+POST http://localhost:8080/auth/refresh
+Content-Type: application/json
+
+{
+    "refreshToken": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqb2FxdWluIiwiaWF0IjoxNzYyMTgwMDQ2LCJleHAiOjE3NjI3ODQ4NDZ9.55PmHiwrdONOfhBSi-2nJxuhM04yiVzI2YCfJo9Hqag"
+}
+
+### PUBLIC
+GET http://localhost:8080/public
+
+### PRIVATE
+GET http://localhost:8080/private
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImpvYXF1aW5AbG9jYWxob3N0LmNvbSIsInN1YiI6ImpvYXF1aW4iLCJpYXQiOjE3NjIxODAwNzIsImV4cCI6MTc2MjE4MDM3Mn0.dPNKPH1jS3QYLb6sSiTmw2XDbiSCCS1O1vOolcTM-3Q
+
+### PROTECTED
+GET http://localhost:8080/admin
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImpvYXF1aW5AbG9jYWxob3N0LmNvbSIsInN1YiI6ImpvYXF1aW4iLCJpYXQiOjE3NjIxODAwMTEsImV4cCI6MTc2MjE4MDMxMX0.xTs4MLRluJMdlzDac5iYloJDbskQ7KGmMsq56qTM0VE
+
+### ME 
+GET http://localhost:8080/auth/me
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImpvYXF1aW5AbG9jYWxob3N0LmNvbSIsInN1YiI6ImpvYXF1aW4iLCJpYXQiOjE3NjIxODAwNzIsImV4cCI6MTc2MjE4MDM3Mn0.dPNKPH1jS3QYLb6sSiTmw2XDbiSCCS1O1vOolcTM-3Q
+

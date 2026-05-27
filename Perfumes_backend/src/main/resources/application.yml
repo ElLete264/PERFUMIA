@@ -1,0 +1,128 @@
+spring:
+    config:
+        import:
+        - optional:file:../.env.local[.properties]
+        - optional:file:.env.local[.properties]
+
+    application:
+        # Nombre de la applicacion.
+        name: perfumia
+
+    datasource:
+        # Cadena de conexion a la bbdd.
+        # Al poner el valor entre ${key:value} priorizamos la variable de entorno de nombre key. Si no la encuentra, toma el valor value.
+        url: ${DB_URL:jdbc:mysql://localhost:3306/perfumia?createDatabaseIfNotExist=true&useUnicode=true&useLegacyDatetimeCode=false&serverTimezone=UTC}
+        username: ${DB_USER:root}
+        password: ${DB_PASSWORD:root}
+
+    jpa:
+        hibernate:
+            # Data Definition Language, indica como Hibernate debe manejar el esquema de la base de datos al iniciar la app.
+            # Recomendado: Validate.
+            ddl-auto: ${JPA_DDL_AUTO:none}
+
+        properties:
+            hibernate:
+                # Indica el dialecto de la base de datos optimizado para MySQL para consultas eficientes.
+                dialect: org.hibernate.dialect.MySQLDialect 
+
+        # Mostrar en consola las consultas SQL. En entrega se recomienda false.
+        show-sql: ${SHOW_SQL:false}
+
+        # Activar la inicializacion de los datos de la base de datos al iniciar la app.
+        defer-datasource-initialization: false
+        
+    sql:
+        init:
+            # Indica las ubicaciones de los scripts de inicializacion de BBDD en caso de que el campo anterior esté en true.
+            schema-locations:
+            - classpath:db/mysql/schema.sql
+            data-locations:
+            - classpath:db/mysql/data.sql
+            #La siguiente propiedad indica cuando crear la base de datos. Si está en always la crea siempre, si está en never nunca.
+            mode: ${dbinitmode:never}
+
+server:
+    port: ${SERVER_PORT:8080}
+
+logging:
+    level:
+        # Nivel de log para el logger raíz (root), afectando a Spring y librerías externas.
+        # Solo se mostrarán mensajes de nivel INFO o superior para estos paquetes.
+        root: INFO
+        # Nivel de log específico para el paquete de tu aplicación (com.vedruna.watchlist).
+        # Se mostrarán todos los mensajes de nivel TRACE o superior, ideal para desarrollo y depuración.
+        com:
+            vedruna:
+                perfumia: ${APP_LOG_LEVEL:INFO}
+        # Nivel de log específico para las sentencias SQL generadas por Hibernate (debe estar show-sql: true).
+        # Se mostrarán todos los mensajes de nivel TRACE o superior, ideal para desarrollo y depuración.
+        org:
+            vedruna:
+                perfumia: ${APP_LOG_LEVEL:INFO}
+            springframework:
+                web: ${SPRING_WEB_LOG_LEVEL:INFO}
+                security: ${SPRING_SECURITY_LOG_LEVEL:INFO}
+            hibernate:
+                SQL: ${HIBERNATE_SQL_LOG_LEVEL:INFO}
+    
+    file:
+        # Nombre y ruta del archivo de log donde se escribirán los mensajes.
+        # Este archivo se creará en el directorio de ejecución de la aplicación.
+        name: logs/app.log
+        
+    pattern:
+        # Define el patrón de formato para los logs que se muestran en la consola.
+        console: "%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level %logger{36} - %msg%n"
+        # Define el patrón de formato para los logs que se escriben en el archivo (logs/app.log).
+        file: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"
+
+springdoc:
+    # Asegura que el JSON de la especificación esté bien ordenado.
+    writer-with-order-by-keys: true
+
+management:
+    endpoints:
+        web:
+            exposure:
+                include: ${ACTUATOR_ENDPOINTS:health,info}
+    zipkin:
+        tracing:
+            endpoint: http://localhost:9411/api/v2/spans
+    endpoint:
+        health:
+            show:
+                details: always
+    metrics:
+        distribution:
+            percentiles-histogram:
+                http.server: 
+                    requests: true
+    tracing:
+        sampling:
+            probability: 1.0
+    prometheus:
+        metrics:
+            export:
+                enabled: true
+
+auth:
+    access-token-secret-key: ${JWT_ACCESS_SECRET:lMCvj7Sirkk41OpuXDBKoSA1YeQ4aTeHmP4gzoyoaLk=}
+    access-token-expiration: ${JWT_ACCESS_EXPIRATION:3600000}
+    refresh-token-secret-key: ${JWT_REFRESH_SECRET:laCvj7Sirkk41OpuXDBKoSA1YeQ4aTeHmP4gzoyoaLk=}
+    refresh-token-expiration: ${JWT_REFRESH_EXPIRATION:604800000}
+
+google:
+    token-info-url: ${GOOGLE_TOKEN_INFO_URL:https://oauth2.googleapis.com/tokeninfo}
+    client-id: ${GOOGLE_CLIENT_ID:}
+
+gemini:
+    api-key: ${GEMINI_API_KEY:}
+    model: ${GEMINI_MODEL:gemini-2.5-flash-lite}
+    base-url: ${GEMINI_BASE_URL:https://generativelanguage.googleapis.com/v1beta/models}
+
+perfume:
+    api:
+        base-url: ${PERFUME_API_BASE_URL:https://api.fragella.com/api/v1}
+        key: ${PERFUME_API_KEY:}
+

@@ -1,0 +1,16 @@
+.env.local
+.env
+*.log
+logs/
+.astro/
+.github/
+design-export/
+design-export*.zip
+entrega/*.zip
+README_EXPOSICION_VIDEO.md
+target/
+dist/
+node_modules/
+.idea/
+.vscode/
+*.iml
