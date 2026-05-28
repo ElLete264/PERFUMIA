@@ -2,6 +2,7 @@
 .env
 .env.deploy
 *.log
+azure-deploy-output.txt
 logs/
 .astro/
 .github/
