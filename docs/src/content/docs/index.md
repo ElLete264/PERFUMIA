@@ -18,7 +18,7 @@ hero:
 **Ciclo:** Desarrollo de Aplicaciones Web (DAW)  
 **Alumno/a:** CARLOS PÉREZ LARA  
 **Repositorio:** [https://github.com/ElLete264/PERFUMIA.git](https://github.com/ElLete264/PERFUMIA.git)  
-**Despliegue:** pendiente de URL publica  
+**Despliegue:** [http://135.225.93.190/](http://135.225.93.190/)  
 **Figma:** [PERFUMIA](https://www.figma.com/design/MhdWeqJJPyEkn8T02pvqhC/PERFUMIA?node-id=0-1&t=dQ4AiaU9o0KblHoK-1)
 
 ## Resumen ejecutivo

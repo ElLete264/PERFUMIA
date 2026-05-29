@@ -5,12 +5,20 @@ description: Preparacion para publicar PerfumIA
 
 ## Estado de entrega
 
-El proyecto esta preparado para despliegue. El repositorio y Figma ya estan definidos; antes de entregar faltan los enlaces publicos de la aplicacion y la documentacion:
+El proyecto esta desplegado en una maquina virtual de Azure con Docker Compose. El frontend se sirve con Nginx y el backend Spring Boot se comunica con Azure Database for MySQL:
 
-- Aplicacion desplegada: pendiente de URL publica.
+- Aplicacion desplegada: http://135.225.93.190/.
 - Repositorio: https://github.com/ElLete264/PERFUMIA.git.
 - Documentacion desplegada: pendiente de URL publica o ejecucion local.
 - Figma: https://www.figma.com/design/MhdWeqJJPyEkn8T02pvqhC/PERFUMIA?node-id=0-1&t=dQ4AiaU9o0KblHoK-1.
+
+Arquitectura de despliegue usada:
+
+- Azure VM Ubuntu como servidor de aplicacion.
+- Docker y Docker Compose para levantar frontend y backend.
+- Nginx sirviendo el build del frontend y reenviando `/api/*` al backend.
+- Azure Database for MySQL Flexible Server como base de datos.
+- Variables reales guardadas en `.env.deploy` dentro de la VM, sin publicarlas en Git.
 
 ## Backend en produccion
 
@@ -26,7 +34,7 @@ Configurar:
 - CORS con el dominio real del frontend.
 - Logs persistentes si el hosting lo permite.
 
-Build:
+Build local o en la VM:
 
 ```powershell
 cd Perfumes_backend
@@ -37,7 +45,7 @@ cd Perfumes_backend
 
 Configurar:
 
-- `VITE_API_URL` con la URL publica del backend.
+- `VITE_API_URL=/api` cuando se usa Nginx o Vercel con rewrites.
 - `VITE_GOOGLE_CLIENT_ID`.
 - `VITE_CLOUDINARY_CLOUD_NAME`.
 - `VITE_CLOUDINARY_UPLOAD_PRESET`.
@@ -50,7 +58,14 @@ npm install
 npm run build
 ```
 
-El resultado esta en `Perfumes_Front/dist/`.
+El resultado esta en `Perfumes_Front/dist/`. En Azure se sirve desde el contenedor Nginx.
+
+## Vercel
+
+El frontend tambien queda preparado para Vercel mediante `Perfumes_Front/vercel.json`, que reenvia:
+
+- `/api/:path*` hacia `http://135.225.93.190/api/:path*`,
+- el resto de rutas hacia `index.html` para que React funcione al recargar paginas.
 
 ## Documentacion Starlight
 
@@ -98,7 +113,7 @@ El zip debe incluir codigo, documentacion, scripts y SQL. No debe incluir:
 
 Antes de entregar:
 
-1. Abrir el enlace desde movil.
+1. Abrir `http://135.225.93.190/` desde movil.
 2. Registrarse o entrar con usuario de prueba.
 3. Enviar un mensaje al asesor.
 4. Generar recomendaciones.
