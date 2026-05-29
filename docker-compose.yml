@@ -1,3 +1,5 @@
+version: "3.8"
+
 services:
   service:
     build:
@@ -17,10 +19,10 @@ services:
       context: ./Perfumes_Front
       dockerfile: Dockerfile
       args:
-        VITE_API_URL: ${VITE_API_URL:-/api}
-        VITE_GOOGLE_CLIENT_ID: ${VITE_GOOGLE_CLIENT_ID:-}
-        VITE_CLOUDINARY_CLOUD_NAME: ${VITE_CLOUDINARY_CLOUD_NAME:-}
-        VITE_CLOUDINARY_UPLOAD_PRESET: ${VITE_CLOUDINARY_UPLOAD_PRESET:-}
+        VITE_API_URL: /api
+        VITE_GOOGLE_CLIENT_ID: ${VITE_GOOGLE_CLIENT_ID}
+        VITE_CLOUDINARY_CLOUD_NAME: ${VITE_CLOUDINARY_CLOUD_NAME}
+        VITE_CLOUDINARY_UPLOAD_PRESET: ${VITE_CLOUDINARY_UPLOAD_PRESET}
     image: perfumia-front
     restart: unless-stopped
     ports:
