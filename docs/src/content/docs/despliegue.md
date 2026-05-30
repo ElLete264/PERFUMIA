@@ -9,6 +9,7 @@ El proyecto esta desplegado con frontend en Vercel y backend en una maquina virt
 
 - Aplicacion desplegada: https://perfumia-nine.vercel.app/.
 - Backend/API en Azure: http://135.225.93.190/api/public.
+- La raiz de la IP de Azure redirige a Vercel para evitar problemas de OAuth con Google sobre HTTP.
 - Repositorio: https://github.com/ElLete264/PERFUMIA.git.
 - Documentacion desplegada: pendiente de URL publica o ejecucion local.
 - Figma: https://www.figma.com/design/MhdWeqJJPyEkn8T02pvqhC/PERFUMIA?node-id=0-1&t=dQ4AiaU9o0KblHoK-1.
