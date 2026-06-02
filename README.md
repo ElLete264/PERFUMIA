@@ -6,7 +6,7 @@
 **Repositorio:** [https://github.com/ElLete264/PERFUMIA.git](https://github.com/ElLete264/PERFUMIA.git)  
 **Despliegue aplicacion:** [https://perfumia-nine.vercel.app/](https://perfumia-nine.vercel.app/)  
 **Backend en Azure:** [http://135.225.93.190/api/public](http://135.225.93.190/api/public)  
-**Despliegue documentacion:** pendiente de URL publica o ejecucion local  
+**Despliegue documentacion:** [http://135.225.93.190/docs/](http://135.225.93.190/docs/)  
 **Figma:** [PERFUMIA](https://www.figma.com/design/MhdWeqJJPyEkn8T02pvqhC/PERFUMIA?node-id=0-1&t=dQ4AiaU9o0KblHoK-1)  
 **Documentacion Starlight:** [`docs/`](docs/)  
 
@@ -399,7 +399,7 @@ Si modificas codigo o documentacion despues de este punto, regenera el zip antes
 - Repositorio: [PERFUMIA](https://github.com/ElLete264/PERFUMIA.git).
 - Aplicacion desplegada: [https://perfumia-nine.vercel.app/](https://perfumia-nine.vercel.app/).
 - Backend/API en Azure: [http://135.225.93.190/api/public](http://135.225.93.190/api/public).
-- Documentacion desplegada: pendiente de URL publica o ejecucion local.
+- Documentacion desplegada: [http://135.225.93.190/docs/](http://135.225.93.190/docs/).
 - Figma: [PERFUMIA](https://www.figma.com/design/MhdWeqJJPyEkn8T02pvqhC/PERFUMIA?node-id=0-1&t=dQ4AiaU9o0KblHoK-1).
 - Documentacion local: [`docs/`](docs/).
 

@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.client.RestClient;
@@ -27,11 +28,12 @@ import lombok.extern.slf4j.Slf4j;
 public class PerfumeCatalogService {
 
     private static final int SEARCH_PAGE_LIMIT = 20;
-    private static final int MAX_SEARCH_PAGES = 5;
+    private static final int MAX_SEARCH_PAGES = 2;
     private static final int MAX_SEARCH_RESULTS = SEARCH_PAGE_LIMIT * MAX_SEARCH_PAGES;
     private static final Duration DEFAULT_RATE_LIMIT_BACKOFF = Duration.ofSeconds(60);
+    private static final Duration DEFAULT_TEMPORARY_UNAVAILABLE_BACKOFF = Duration.ofSeconds(45);
 
-    private final RestClient restClient = RestClient.create();
+    private final RestClient restClient;
     private final ObjectMapper objectMapper;
     private volatile Instant unavailableUntil = Instant.EPOCH;
     private volatile String lastStatus = "not_checked";
@@ -44,6 +46,9 @@ public class PerfumeCatalogService {
 
     public PerfumeCatalogService(ObjectMapper objectMapper) {
         this.objectMapper = objectMapper;
+        this.restClient = RestClient.builder()
+                .requestFactory(requestFactory())
+                .build();
     }
 
     public List<PerfumeItem> searchPerfumes(String query) {
@@ -93,8 +98,10 @@ public class PerfumeCatalogService {
             handleFragellaHttpError(ex);
             return List.of();
         } catch (RestClientException | IllegalArgumentException ex) {
-            lastStatus = "error";
-            log.warn("No se pudo consultar Fragella: {}", ex.getMessage());
+            unavailableUntil = Instant.now().plus(DEFAULT_TEMPORARY_UNAVAILABLE_BACKOFF);
+            lastStatus = "temporary_unavailable";
+            log.warn("No se pudo consultar Fragella. Se usara catalogo local durante {} segundos: {}",
+                    DEFAULT_TEMPORARY_UNAVAILABLE_BACKOFF.toSeconds(), ex.getMessage());
             return List.of();
         }
     }
@@ -507,5 +514,12 @@ public class PerfumeCatalogService {
             return imageUrl.substring(0, imageUrl.length() - 4) + ".webp";
         }
         return imageUrl;
+    }
+
+    private SimpleClientHttpRequestFactory requestFactory() {
+        SimpleClientHttpRequestFactory factory = new SimpleClientHttpRequestFactory();
+        factory.setConnectTimeout(Duration.ofSeconds(2));
+        factory.setReadTimeout(Duration.ofSeconds(6));
+        return factory;
     }
 }

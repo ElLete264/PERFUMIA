@@ -1,7 +1,12 @@
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
 
+const docsBasePath = process.env.DOCS_BASE_PATH || '/';
+const docsSite = process.env.DOCS_SITE || 'http://localhost:4321';
+
 export default defineConfig({
+  site: docsSite,
+  base: docsBasePath,
   integrations: [
     starlight({
       title: 'PerfumIA',

@@ -25,6 +25,8 @@ services:
     restart: unless-stopped
     ports:
       - "80:80"
+    volumes:
+      - ./docs/dist:/usr/share/nginx/html/docs:ro
     depends_on:
       - service
 
