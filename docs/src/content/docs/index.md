@@ -6,10 +6,10 @@ hero:
   tagline: Proyecto final de Desarrollo de Aplicaciones Web
   actions:
     - text: Ver documentacion
-      link: /introduccion/
+      link: ./introduccion/
       icon: right-arrow
     - text: Cumplimiento DAW
-      link: /cumplimiento-daw/
+      link: ./cumplimiento-daw/
       variant: minimal
 ---
 
